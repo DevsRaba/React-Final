@@ -1,19 +1,39 @@
-import React from 'react'
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 
+import { useOdontologiaStates } from "../Components/utils/global.context";
 
 //Este componente debera ser estilado como "dark" o "light" dependiendo del theme del Context
 
-const Detail = () => {
- 
-  // Consumiendo el parametro dinamico de la URL deberan hacer un fetch a un user en especifico
+const Navbar = () => {
+  const navigate = useNavigate();
+
+  const { theme, setTheme } = useOdontologiaStates();
+
+  const handleChangeTheme = () => {
+    theme === "" ? setTheme("dark") : setTheme("");
+  };
 
   return (
-    <>
-      <h1>Detail Dentist id </h1>
-      {/* aqui deberan renderizar la informacion en detalle de un user en especifico */}
-      {/* Deberan mostrar el name - email - phone - website por cada user en especifico */}
-    </>
-  )
-}
+    <nav>
+      {/* Aqui deberan agregar los liks correspondientes a las rutas definidas */}
+      <button onClick={() => navigate(-1)}>↩</button>
+      <Link to="/">
+        <h3>Home</h3>
+      </Link>
+      <Link to="/contact">
+        <h3>Contact</h3>
+      </Link>
+      <Link to="/favs">
+        <h3>Favoritos</h3>
+      </Link>
 
-export default Detail
+      {/* Deberan implementar ademas la logica para cambiar de Theme con el button */}
+      <button onClick={handleChangeTheme}>
+        {theme === "" ? "Mode 🌛" : "Mode 🌞"}
+      </button>
+    </nav>
+  );
+};
+
+export default Navbar;
